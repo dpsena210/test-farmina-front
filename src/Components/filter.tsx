@@ -1,14 +1,6 @@
 import Select, { ActionMeta, SingleValue } from 'react-select';
 import { useState, useEffect } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
-} from "@mui/material";
+import { Table,TableBody, TableCell,TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 interface SpecialCare {
   value: string;
@@ -25,7 +17,6 @@ interface ProductType {
   lifeStage : string | null;
 }
 
-// Tipo para as opções do Select
 interface SelectOption {
   value: string;
   label: string;
@@ -46,7 +37,6 @@ const columnsHeadersSequence = Object.keys(columnHeaders); // Ordem controlada
 
 
 export default function Filter() {
-  // Estado único para o produto
   const [product, setProduct] = useState<ProductType>({
     country:'IT',
     type: null,
@@ -57,7 +47,6 @@ export default function Filter() {
     lifeStage: null
   });
 
-  // Estado para as opções do select
   const [nameOptions, setNameOptions] = useState<string | null>(null);
   const [productTypeValue, setProductTypeValue] = useState<string | null>(null);
   const [petType, setPetType] = useState<string | null>(null);
@@ -68,7 +57,7 @@ export default function Filter() {
   const [ specialCareOptions , setSpecialCareOptions] = useState<SpecialCare[]>([]);
  
   const [filteredData, setFilteredData]  =  useState<any>([]);
-const [columns, setColumns] = useState<string[]>(columnsHeadersSequence);
+  const [columns, setColumns] = useState<string[]>(columnsHeadersSequence);
 
   const productTypeOptions = [
   { value: 'dry', label: 'Dry' },
@@ -102,7 +91,7 @@ const petTypeOptions = [
   // Carrega opções ao montar o componente
   useEffect(() => {
 
-    fetch('http://localhost:5000/api/products',{
+    fetch('https://www.webstock.com.br/api/products',{
         method:'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +104,7 @@ const petTypeOptions = [
         setFilteredData(data.products_filtered);
         setColumns(Object.keys(data.products_filtered[0]));
       });
-      fetch('http://localhost:5000/api/special',{
+      fetch('https://www.webstock.com.br/api/special',{
         method:'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -138,18 +127,6 @@ const petTypeOptions = [
     
   }, [productTypeValue,petType, gestationVar, lactationVar,specialCare,lifeStageValue]);
 
-  const handleChangeName = (
-    newValue: SingleValue<SelectOption>,
-    actionMeta: ActionMeta<SelectOption>
-  ) => {
-    if (newValue) {
-      setProduct(prev => ({
-        ...prev,
-        name: newValue.label,
-        id: newValue.value
-      }));
-    }
-  };
 
   const handleChangeProductType = (selectedOption: any) => {
     setProduct({
@@ -244,7 +221,6 @@ const petTypeOptions = [
       .join(", ");
   }
   
-
   return String(value);
 };
 
@@ -285,9 +261,7 @@ const petTypeOptions = [
             styles={{
                     placeholder: (base) => ({
                     ...base,
-                    color: 'black' ,
-                    
-
+                    color: 'black' ,         
                     })
                 }}
         />
@@ -307,8 +281,6 @@ const petTypeOptions = [
                     placeholder: (base) => ({
                     ...base,
                     color: 'black',
-                    
-
                     })
                 }}
         />
@@ -328,8 +300,6 @@ const petTypeOptions = [
                     placeholder: (base) => ({
                     ...base,
                     color: 'black',
-                    
-
                     })
                 }}
         />
@@ -348,7 +318,6 @@ const petTypeOptions = [
                     placeholder: (base) => ({
                     ...base,
                     color: 'black',
-
                     })
                 }}
         />
@@ -367,13 +336,11 @@ const petTypeOptions = [
                     placeholder: (base) => ({
                     ...base,
                     color: 'black' ,
-                    
                 })
                 }}
         />
         </div>
     </div>
-
        <TableContainer component={Paper} sx={{
                         borderRadius: 5,
                         boxShadow: 10,
@@ -398,7 +365,6 @@ const petTypeOptions = [
                     letterSpacing: '0.5px', // Espaçamento entre letras
                     borderRight: '1px solid rgba(255, 255, 255, 0.1)', // Divisor sutil
                     '&:last-child': { borderRight: 'none' }, // Remove borda do último item
-                    
                     }}>
                 {columnHeaders[col]} 
             </TableCell>

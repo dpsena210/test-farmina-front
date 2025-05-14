@@ -9,12 +9,7 @@ function App() {
     <div className='container'>
       <Header />
       <Filter/>
-
     </div>
-    
-
-      
-    
   );
 }
 

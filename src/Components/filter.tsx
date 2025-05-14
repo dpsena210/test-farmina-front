@@ -86,9 +86,6 @@ const petTypeOptions = [
   
     ];
     
-
-  
-  // Carrega opções ao montar o componente
   useEffect(() => {
 
     fetch('https://www.webstock.com.br/api/products',{
@@ -236,14 +233,11 @@ const petTypeOptions = [
                 isSearchable
                 placeholder="Alimentação"
                 className='filter'
-
                 noOptionsMessage={() => "Nenhuma opção encontrada"}
                  styles={{
                     placeholder: (base) => ({
                     ...base,
                     color: 'black'
-                
-
                     })
                 }}
             />

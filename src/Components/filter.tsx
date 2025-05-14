@@ -81,13 +81,13 @@ const petTypeOptions = [
     ];
 
     const gestationOptions = [
-  { value: 'true', label: 'Gestante' },
-  { value: 'false', label: 'Não Gestante' },
+  { value: 'true', label: 'Sim' },
+  { value: 'false', label: 'Não' },
   
     ];
      const lactationOptions = [
-  { value: 'true', label: 'Lactante' },
-  { value: 'false', label: 'Não Lactante' },
+  { value: 'true', label: 'Sim' },
+  { value: 'false', label: 'Não' },
   
     ];
      const lifeStageOptions = [
@@ -112,12 +112,8 @@ const petTypeOptions = [
     })
       .then(res => res.json())
       .then(data => {
-        
-        console.log("dataaaao",data.products_filtered)
-        
         setFilteredData(data.products_filtered);
         setColumns(Object.keys(data.products_filtered[0]));
-
       });
       fetch('http://localhost:5000/api/special',{
         method:'POST',
@@ -129,13 +125,11 @@ const petTypeOptions = [
     })
       .then(res => res.json())
         .then((data) => {
-            console.log("Resposta de /api/special:", data);  // <-- veja o que vem
             if (Array.isArray(data.special_filtered)) {
                 const options = data.special_filtered.map((care: any) => ({
                 value: care.specialcare_id,
                 label: care.specialcare_name
                 }));
-                console.log("optionss",options)
                 setSpecialCareOptions(options);
             } else {
                 console.error("Resposta inesperada:", data);
@@ -221,7 +215,6 @@ const petTypeOptions = [
   const handleSpecialCare = (selectedOption: any) => {
 
     setSpecialCare(selectedOption ? selectedOption.value : null);
-    console.log("speceiaaal",selectedOption ? selectedOption.value : null)
     setProduct({
         country:'IT',
         type: petType,
@@ -241,7 +234,6 @@ const petTypeOptions = [
   }
 
   if (typeof value === "object") {
-    // Se o valor é um objeto simples: exibe os nomes ou os valores
     return Object.values(value)
       .map((v) => {
         if (v && typeof v === "object" && "name" in v) {
@@ -251,6 +243,7 @@ const petTypeOptions = [
       })
       .join(", ");
   }
+  
 
   return String(value);
 };
